@@ -1,213 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>kablankooo</title>
-    <link rel="icon" href="images/logo.png?v=1" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>kablankooo</title>
+<link rel="icon" href="images/logo.png?v=1" type="image/png">
+<style>
+    /* Remove scrollbar */
+    ::-webkit-scrollbar { width: 0px; background: transparent; }
+    html { scrollbar-width: none; }
 
-    <style>
-        /* Remove scrollbar */
-        ::-webkit-scrollbar {
-            width: 0px;
-            background: transparent;
-        }
-        html {
-            scrollbar-width: none;
-        }
+    /* Full-page gradient background */
+    @keyframes gradientFade {
+        0% {background-position: 0% 50%;}
+        50% {background-position: 100% 50%;}
+        100% {background-position: 0% 50%;}
+    }
+    body {
+        margin: 0;
+        min-height: 200vh;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(-45deg, #6a0dad, #9b30ff, #4b0082, #8a2be2);
+        background-size: 400% 400%;
+        animation: gradientFade 15s ease infinite;
+        position: relative;
+        overflow-x: hidden;
+        color: white;
+    }
 
-        /* Full-page animated gradient background */
-        @keyframes gradientFade {
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
-        }
+    /* Overlay */
+    #start-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.85);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        cursor: pointer;
+        text-align: center;
+        transition: opacity 0.6s ease;
+    }
+    #start-overlay.hidden { opacity: 0; pointer-events: none; }
 
-        body {
-            margin: 0;
-            min-height: 200vh;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(-45deg, #6a0dad, #9b30ff, #4b0082, #8a2be2);
-            background-size: 400% 400%;
-            animation: gradientFade 15s ease infinite;
-            position: relative;
-            overflow-x: hidden;
-            color: white;
-        }
+    /* Glowing text */
+    #start-overlay span {
+        font-size: 2em;
+        font-weight: bold;
+        color: white;
+        text-shadow:
+            0 0 5px #fff,
+            0 0 10px #fff,
+            0 0 20px #fff,
+            0 0 40px #ff00ff,
+            0 0 80px #ff00ff;
+        animation: glow 1.5s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+        0% { text-shadow: 0 0 5px #fff,0 0 10px #fff,0 0 20px #fff,0 0 40px #ff00ff,0 0 80px #ff00ff; }
+        100% { text-shadow: 0 0 10px #fff,0 0 20px #fff,0 0 40px #fff,0 0 60px #ff00ff,0 0 120px #ff00ff; }
+    }
 
-        /* Top-right circular profile image */
-        .profile-img {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 3px solid rgba(255, 255, 255, 0.8);
-            object-fit: cover;
-            box-shadow: 0 0 15px rgba(0,0,0,0.4);
-            transition: opacity 0.5s ease;
-            z-index: 10;
-        }
-
-        /* Top title */
-        .top-title {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2em;
-            font-weight: bold;
-            text-align: center;
-            transition: opacity 0.5s ease;
-            z-index: 5;
-        }
-
-        /* Scroll hint */
-        .scroll-hint {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.2em;
-            color: rgba(255,255,255,0.7);
-            text-shadow: 0 0 10px rgba(255,255,255,0.8);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: opacity 0.5s ease;
-            z-index: 5;
-        }
-
-        .scroll-hint::after {
-            content: "⬇";
-            font-size: 1.5em;
-            animation: bounce 1s infinite alternate;
-        }
-
-        @keyframes bounce {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(10px); }
-        }
-
-        /* Content */
-        .content {
-            max-width: 800px;
-            margin: 250px auto 50px auto;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 12px;
-            color: white;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
-        }
-
-        /* Image section container */
-        #image-container {
-            position: relative;
-            width: 100%;
-            margin-top: 100vh; /* pushes images below bottom of first screen */
-        }
-
-        /* Loaded images */
-        #image-container img {
-            width: 100%;   /* full width */
-            height: auto;  /* keep ratio */
-            display: block;
-            margin: 0;     /* no gaps */
-        }
-    </style>
+    /* Existing content styling */
+    .profile-img { position: fixed; top:20px; right:20px; width:80px; height:80px; border-radius:50%; border:3px solid rgba(255,255,255,0.8); object-fit:cover; box-shadow:0 0 15px rgba(0,0,0,0.4); transition: opacity 0.5s ease; z-index:10; }
+    .top-title { position: fixed; top:20px; left:50%; transform: translateX(-50%); font-size:2em; font-weight:bold; text-align:center; transition: opacity 0.5s ease; z-index:5; }
+    .scroll-hint { position: fixed; bottom:20px; left:50%; transform: translateX(-50%); font-size:1.2em; color: rgba(255,255,255,0.7); text-shadow:0 0 10px rgba(255,255,255,0.8); display:flex; align-items:center; gap:10px; transition: opacity 0.5s ease; z-index:5; }
+    .scroll-hint::after { content: "⬇"; font-size:1.5em; animation:bounce 1s infinite alternate; }
+    @keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(10px); } }
+    .content { max-width:800px; margin:250px auto 50px auto; padding:20px; background:rgba(0,0,0,0.4); border-radius:12px; color:white; backdrop-filter:blur(5px); box-shadow:0 0 20px rgba(0,0,0,0.3); }
+    #image-container { position:relative; width:100%; margin-top:100vh; }
+    #image-container img { width:100%; height:auto; display:block; margin:0; }
+</style>
 </head>
 <body>
-    <img src="images/pfp.png" alt="Profile Picture" class="profile-img">
-    <div class="top-title">kablankooo.github.io</div>
-    <div class="scroll-hint">Scroll Down c:</div>
 
-    <div class="content">
-        <p>Welcome to kablankooo's portfolio. Here, you may find everything that kablankooo has worked on privately or publicly. Large programming projects may be posted here from time to time.</p>
-        <p>All content in this page is only to be used to share this portfolio. You have no right to download these assets or claim these as your own. This is all strictly for display purposes.</p>
-    </div>
+<div id="start-overlay"><span>Click to reveal kablankooo's portfolio c:</span></div>
 
-    <!-- IMAGES WILL BE INSERTED HERE -->
-    <div id="image-container"></div>
+<img src="images/pfp.png" alt="Profile Picture" class="profile-img">
+<div class="top-title">kablankooo.github.io</div>
+<div class="scroll-hint">Scroll Down c:</div>
+<div class="content">
+    <p>Welcome to kablankooo's portfolio. Here, you may find everything that kablankooo has worked on privately or publicly. Large programming projects may be posted here from time to time.</p>
+    <p>All content in this page is only to be used to share this portfolio. You have no right to download these assets or claim these as your own. This is all strictly for display purposes.</p>
+</div>
+<div id="image-container"></div>
 
-    <script>
-        const profileImg = document.querySelector('.profile-img');
-        const topTitle = document.querySelector('.top-title');
-        const scrollHint = document.querySelector('.scroll-hint');
+<script>
+const profileImg = document.querySelector('.profile-img');
+const topTitle = document.querySelector('.top-title');
+const scrollHint = document.querySelector('.scroll-hint');
 
-        window.addEventListener('scroll', () => {
-            let scrollY = window.scrollY;
+window.addEventListener('scroll', () => {
+    let scrollY = window.scrollY;
+    profileImg.style.opacity = Math.max(0, Math.min(1, 1 - (scrollY - 50)/(300-50)));
+    topTitle.style.opacity = Math.max(0, 1 - scrollY/200);
+    scrollHint.style.opacity = Math.max(0, Math.min(1, 1 - (scrollY-50)/(250-50)));
+});
 
-            // Fade out profile image
-            let opacity = 1 - (scrollY - 50) / (300 - 50);
-            profileImg.style.opacity = Math.max(0, Math.min(1, opacity));
+// Load images
+const imgContainer = document.getElementById("image-container");
+async function loadImages() {
+    let index = 1;
+    while(true){
+        let imgPath = `info/${index}.png`;
+        let exists = await fetch(imgPath,{method:"HEAD"}).then(r=>r.ok).catch(()=>false);
+        if(!exists) break;
+        let img = document.createElement("img");
+        img.src = imgPath;
+        imgContainer.appendChild(img);
+        index++;
+    }
+}
+loadImages();
 
-            // Fade out top title
-            let titleOpacity = 1 - scrollY / 200;
-            topTitle.style.opacity = Math.max(0, titleOpacity);
+// Audio
+const audio = new Audio("bgmusic.mp3");
+audio.loop = true;
+audio.volume = 0.5;
+audio.muted = true;
+audio.play().catch(()=>console.log("Muted autoplay started"));
 
-            // Fade out scroll hint
-            let hintOpacity = 1 - (scrollY - 50) / (250 - 50);
-            scrollHint.style.opacity = Math.max(0, Math.min(1, hintOpacity));
-        });
-
-        // ------------------------------
-        // Auto-load all images from info folder
-        // ------------------------------
-        const imgContainer = document.getElementById("image-container");
-
-        async function loadImages() {
-            let index = 1;
-
-            while (true) {
-                let imgPath = `info/${index}.png`;
-
-                // Check if image exists
-                let exists = await fetch(imgPath, { method: "HEAD" }).then(
-                    r => r.ok
-                ).catch(() => false);
-
-                if (!exists) break;
-
-                // Create image
-                let img = document.createElement("img");
-                img.src = imgPath;
-                imgContainer.appendChild(img);
-
-                index++;
-            }
-        }
-
-        loadImages();
-    </script>
-
-    <script>
-        // Create audio element
-        const audio = new Audio("bgmusic.mp3");
-        audio.loop = true;
-        audio.volume = 0.5; // optional starting volume
-        audio.muted = true;  // start muted so autoplay is allowed
-        audio.play().catch(e => console.log("Muted autoplay started"));
-    
-        // Function to unmute on first user interaction
-        function unmute() {
-            audio.muted = false; // unmute now allowed by browser
-            window.removeEventListener("mousemove", unmute);
-            window.removeEventListener("scroll", unmute);
-            window.removeEventListener("click", unmute);
-            window.removeEventListener("keydown", unmute);
-        }
-    
-        // Listen for interactions
-        window.addEventListener("mousemove", unmute);
-        window.addEventListener("scroll", unmute);
-        window.addEventListener("click", unmute);
-        window.addEventListener("keydown", unmute);
-    </script>
-
-
-
+// Overlay click to reveal
+const overlay = document.getElementById("start-overlay");
+overlay.addEventListener("click", ()=>{
+    overlay.classList.add("hidden"); // fade out overlay
+    audio.muted = false;            // unmute
+    audio.play().catch(()=>{});      // ensure it plays
+});
+</script>
 
 </body>
 </html>
