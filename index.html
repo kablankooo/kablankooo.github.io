@@ -6,115 +6,291 @@
 <title>Kablankooo</title>
 
 <style>
-    /* GLOBAL */
-    body, html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        overflow: hidden;
-        background: #0a0a0f;
-        font-family: "Poppins", sans-serif;
-        color: white;
-    }
+/* GLOBAL */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #0a0a0f;
+    font-family: "Poppins", sans-serif;
+    color: white;
+    overflow: hidden;
+}
 
-    /* ENTRY WRAPPER */
-    #entry-screen {
-        position: fixed;
-        inset: 0;
-        background: #05050a;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        z-index: 1000;
-        overflow: hidden;
-    }
+/* ENTRY SCREEN */
+#entry-screen {
+    position: fixed;
+    inset: 0;
+    background: #05050a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 2000;
+}
 
-    /* TYPING TEXT */
-    #typewriter {
-        font-size: 36px;
-        font-weight: 600;
-        white-space: nowrap;
-        border-right: 3px solid #9550ff;
-        width: 0;
-        overflow: hidden;
-        animation: typing 2.3s steps(30) forwards, blink 0.7s infinite;
-    }
+/* TYPING */
+#typewriter {
+    font-size: 36px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid #9550ff;
+}
 
-    @keyframes typing {
-        from { width: 0 }
-        to { width: 380px }
-    }
-    @keyframes blink {
-        0% { border-color: transparent; }
-        50% { border-color: #9550ff; }
-        100% { border-color: transparent; }
-    }
+/* Cursor blink */
+@keyframes blink {
+    0% { border-color: transparent; }
+    50% { border-color: #9550ff; }
+    100% { border-color: transparent; }
+}
 
-    /* PURPLE ENERGY WIPE */
-    #wipe {
-        position: absolute;
-        left: -200%;
-        top: 0;
-        width: 200%;
-        height: 100%;
-        background: linear-gradient(115deg, transparent 0%, #8b2cff 50%, transparent 100%);
-        filter: blur(40px) saturate(1.8);
-        transform: skewX(-20deg);
-        opacity: 0;
-    }
+/* Purple Wipe */
+#wipe {
+    position: absolute;
+    left: -200%;
+    top: 0;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(115deg, transparent 0%, #8b2cff 50%, transparent 100%);
+    filter: blur(40px) saturate(1.8);
+    transform: skewX(-20deg);
+    opacity: 0;
+}
 
-    /* MAIN SITE CONTENT */
-    #site-content {
-        opacity: 0;
-        transition: opacity 1.2s ease;
-        padding: 40px;
-        overflow-y: auto;
-    }
+/* MAIN SITE */
+#site-content {
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    height: 100%;
+    overflow-y: auto;
+}
 
+/* ORIGINAL SITE STYLES BELOW */
+::-webkit-scrollbar { width: 0px; background: transparent; }
+html { scrollbar-width: none; }
+
+@keyframes gradientFade {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+#real-site {
+    min-height: 200vh;
+    background: linear-gradient(-45deg, #6a0dad, #9b30ff, #4b0082, #8a2be2);
+    background-size: 400% 400%;
+    animation: gradientFade 15s ease infinite;
+    position: relative;
+    color: white;
+    padding-bottom: 100px;
+}
+
+.profile-img {
+    position: fixed;
+    top:20px; right:20px;
+    width:80px; height:80px;
+    border-radius:50%;
+    border:3px solid rgba(255,255,255,0.8);
+    object-fit:cover;
+    box-shadow:0 0 15px rgba(0,0,0,0.4);
+    transition: opacity 0.5s ease;
+    z-index:10;
+}
+
+.top-title {
+    position: fixed;
+    top:20px; left:50%;
+    transform: translateX(-50%);
+    font-size:2em;
+    font-weight:bold;
+    text-align:center;
+    transition: opacity 0.5s ease;
+    z-index:5;
+}
+
+.scroll-hint {
+    position: fixed;
+    bottom:20px; left:50%;
+    transform: translateX(-50%);
+    font-size:1.2em;
+    color: rgba(255,255,255,0.7);
+    text-shadow:0 0 10px rgba(255,255,255,0.8);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    transition: opacity 0.5s ease;
+    z-index:5;
+}
+
+.scroll-hint::after {
+    content: "⬇";
+    font-size:1.5em;
+    animation:bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(10px); }
+}
+
+.content {
+    max-width:800px;
+    margin:250px auto 50px auto;
+    padding:20px;
+    background:rgba(0,0,0,0.4);
+    border-radius:12px;
+    backdrop-filter:blur(5px);
+    box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
+
+#image-container img {
+    width:100%;
+    display:block;
+    margin:0;
+}
+
+#scroll-progress {
+    position: fixed;
+    bottom: 0; left: 0;
+    height: 6px;
+    width: 0%;
+    background: linear-gradient(90deg, #8a2be2, #d580ff);
+    z-index: 3000;
+}
 </style>
 </head>
 
 <body>
 
-<!-- ENTRY SCREEN -->
+<!-- ENTRY ANIMATION -->
 <div id="entry-screen">
-    <div id="typewriter">Welcome to Kablankooo.</div>
+    <div id="typewriter"></div>
     <div id="wipe"></div>
 </div>
 
-<!-- MAIN SITE CONTENT -->
+<!-- MAIN SITE AFTER ANIMATION -->
 <div id="site-content">
-    <h1 style="font-size: 50px; margin-top: 0;">Your Actual Website</h1>
-    <p style="font-size: 20px; opacity: 0.7;">
-        This is where your real portfolio / homepage content goes.
-        The intro animation hides this until ready.
-    </p>
+
+<div id="real-site">
+
+<img src="images/pfp.png" class="profile-img">
+<div class="top-title">kablankooo.github.io</div>
+<div class="scroll-hint">Scroll Down c:</div>
+
+<div class="content">
+    <p>Welcome to kablankooo's portfolio...</p>
+    <p>All content is for display only.</p>
+</div>
+
+<div id="image-container"></div>
+
+<div id="scroll-progress"></div>
+
+</div>
+
 </div>
 
 <script>
+/* ------------------- */
+/*  TYPING ANIMATION   */
+/* ------------------- */
 
-    // After typing finishes → start wipe animation
+const text = "Welcome to Kablankooo.";
+const typewriter = document.getElementById("typewriter");
+
+let idx = 0;
+const speed = 65;
+
+function type() {
+    if (idx < text.length) {
+        typewriter.textContent = text.substring(0, idx + 1);
+        idx++;
+        setTimeout(type, speed);
+    } else {
+        typewriter.style.animation = "blink 0.7s infinite";
+        startWipe();
+    }
+}
+
+setTimeout(type, 600);
+
+/* ------------------- */
+/*  WIPE → SHOW SITE   */
+/* ------------------- */
+
+function startWipe() {
+    const wipe = document.getElementById("wipe");
+
     setTimeout(() => {
-        const wipe = document.getElementById("wipe");
         wipe.style.transition = "1.2s cubic-bezier(0.16, 1, 0.3, 1)";
         wipe.style.opacity = "1";
         wipe.style.left = "0%";
 
-        // Remove entry screen shortly after
         setTimeout(() => {
-            document.getElementById("entry-screen").style.transition = "0.6s ease";
+            document.getElementById("entry-screen").style.transition = "0.7s ease";
             document.getElementById("entry-screen").style.opacity = "0";
 
-            // Reveal site
             setTimeout(() => {
                 document.getElementById("site-content").style.opacity = "1";
                 document.getElementById("entry-screen").remove();
-            }, 600);
+                document.body.style.overflow = "auto"; // allow scroll
+            }, 700);
 
-        }, 1000);
+        }, 900);
 
-    }, 2500); // matches typing duration
+    }, 250);
+}
+
+/* ------------------- */
+/*   ORIGINAL WEBSITE   */
+/* ------------------- */
+
+const profileImg = document.querySelector('.profile-img');
+const topTitle = document.querySelector('.top-title');
+const scrollHint = document.querySelector('.scroll-hint');
+const progressBar = document.getElementById('scroll-progress');
+
+window.addEventListener('scroll', () => {
+    let scrollY = window.scrollY;
+    profileImg.style.opacity = Math.max(0, Math.min(1, 1 - (scrollY - 50)/(300-50)));
+    topTitle.style.opacity = Math.max(0, 1 - scrollY/200);
+    scrollHint.style.opacity = Math.max(0, Math.min(1, 1 - (scrollY-50)/(250-50)));
+
+    let scrollTop = document.documentElement.scrollTop;
+    let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    progressBar.style.width = (scrollTop / scrollHeight) * 100 + '%';
+});
+
+async function loadImages() {
+    const container = document.getElementById("image-container");
+    let index = 1;
+
+    while (true) {
+        let imgPath = `info/${index}.png`;
+        let exists = await fetch(imgPath, { method:"HEAD" }).then(r => r.ok).catch(()=>false);
+        if(!exists) break;
+
+        let img = document.createElement("img");
+        img.src = imgPath;
+        container.appendChild(img);
+        index++;
+    }
+}
+loadImages();
+
+/* MUSIC */
+const audio = new Audio("bgmusic.mp3");
+audio.loop = true;
+audio.volume = 0.5;
+audio.muted = true;
+
+audio.play().catch(()=>{});
+
+document.addEventListener("click", () => {
+    audio.muted = false;
+    audio.play().catch(()=>{});
+}, { once: true });
 
 </script>
 
