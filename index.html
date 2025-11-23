@@ -70,6 +70,18 @@
     .content { max-width:800px; margin:250px auto 50px auto; padding:20px; background:rgba(0,0,0,0.4); border-radius:12px; color:white; backdrop-filter:blur(5px); box-shadow:0 0 20px rgba(0,0,0,0.3); }
     #image-container { position:relative; width:100%; margin-top:100vh; }
     #image-container img { width:100%; height:auto; display:block; margin:0; }
+
+    /* Scroll progress bar */
+    #scroll-progress {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        height: 6px;
+        width: 0%;
+        background: linear-gradient(90deg, #8a2be2, #d580ff);
+        z-index: 10000;
+        transition: width 0.1s ease-out;
+    }
 </style>
 </head>
 <body>
@@ -85,16 +97,26 @@
 </div>
 <div id="image-container"></div>
 
+<!-- Scroll progress bar -->
+<div id="scroll-progress"></div>
+
 <script>
 const profileImg = document.querySelector('.profile-img');
 const topTitle = document.querySelector('.top-title');
 const scrollHint = document.querySelector('.scroll-hint');
+const progressBar = document.getElementById('scroll-progress');
 
 window.addEventListener('scroll', () => {
     let scrollY = window.scrollY;
     profileImg.style.opacity = Math.max(0, Math.min(1, 1 - (scrollY - 50)/(300-50)));
     topTitle.style.opacity = Math.max(0, 1 - scrollY/200);
     scrollHint.style.opacity = Math.max(0, Math.min(1, 1 - (scrollY-50)/(250-50)));
+
+    // Update progress bar
+    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    let scrollPercent = (scrollTop / scrollHeight) * 100;
+    progressBar.style.width = scrollPercent + '%';
 });
 
 // Load images
