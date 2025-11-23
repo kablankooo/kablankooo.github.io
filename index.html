@@ -182,9 +182,18 @@
         loadImages();
     </script>
 
-    <audio autoplay loop>
-        <source src="bgmusic.mp3" type="audio/mpeg">
-    </audio>
+    <script>
+        const audio = new Audio("bgmusic.mp3");
+        audio.loop = true;
+        
+        function startMusic() {
+            audio.play().catch(e => console.log("Autoplay blocked, user interaction required"));
+            window.removeEventListener("mousemove", startMusic);
+        }
+        
+        window.addEventListener("click", startMusic); // start on first click
+    </script>
+
 
 
 </body>
