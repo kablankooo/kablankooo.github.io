@@ -3,51 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kablankooo</title>
+<title>kablankooo • Portfolio</title>
+<link rel="icon" href="images/logo.png?v=1" type="image/png">
 
 <style>
-/* GLOBAL */
-body, html {
-    margin: 0;
-    padding: 0;
+/* ---------- GLOBAL RESET ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
     height: 100%;
-    background: #0a0a0f;
-    font-family: "Poppins", sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    font-family: "Inter", Arial, sans-serif;
+    background: linear-gradient(-45deg, #6a0dad, #8a2be2, #4b0082, #9c4dff);
+    background-size: 400% 400%;
+    animation: bgFlow 18s ease infinite;
     color: white;
-    overflow: hidden;
 }
 
-/* ENTRY SCREEN */
+/* ---------- BACKGROUND ANIMATION ---------- */
+@keyframes bgFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ---------- ENTRY SCREEN ---------- */
 #entry-screen {
     position: fixed;
     inset: 0;
-    background: #05050a;
+    background: rgba(10,0,20,0.95);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    z-index: 2000;
+    z-index: 9999;
+    overflow: hidden;
 }
 
-/* TYPING */
 #typewriter {
-    font-size: 36px;
-    font-weight: 600;
+    font-size: 2.4em;
+    font-weight: 700;
+    letter-spacing: 1px;
     white-space: nowrap;
     overflow: hidden;
     border-right: 3px solid #9550ff;
 }
 
-/* Cursor blink */
+/* blinking cursor */
 @keyframes blink {
-    0% { border-color: transparent; }
+    0%,100% { border-color: transparent; }
     50% { border-color: #9550ff; }
-    100% { border-color: transparent; }
 }
 
-/* Purple Wipe */
+/* ---------- CLICK TO ENTER OVERLAY ---------- */
+#click-overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(10,0,20,0.88);
+    backdrop-filter: blur(12px);
+    z-index: 10000;
+    cursor: pointer;
+    transition: opacity 0.6s ease;
+}
+
+#click-overlay span {
+    font-size: 2.2em;
+    letter-spacing: 1px;
+    padding: 20px 40px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(200,0,255,0.4);
+    backdrop-filter: blur(10px);
+    animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: .9; }
+    100% { transform: scale(1.05); opacity: 1; }
+}
+
+/* ---------- PURPLE WIPE ---------- */
 #wipe {
-    position: absolute;
+    position: fixed;
     left: -200%;
     top: 0;
     width: 200%;
@@ -56,77 +97,54 @@ body, html {
     filter: blur(40px) saturate(1.8);
     transform: skewX(-20deg);
     opacity: 0;
+    z-index: 10001;
 }
 
-/* MAIN SITE */
-#site-content {
-    opacity: 0;
-    transition: opacity 1.2s ease;
-    height: 100%;
-    overflow-y: auto;
-}
-
-/* ORIGINAL SITE STYLES BELOW */
-::-webkit-scrollbar { width: 0px; background: transparent; }
-html { scrollbar-width: none; }
-
-@keyframes gradientFade {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
-}
-
-#real-site {
-    min-height: 200vh;
-    background: linear-gradient(-45deg, #6a0dad, #9b30ff, #4b0082, #8a2be2);
-    background-size: 400% 400%;
-    animation: gradientFade 15s ease infinite;
-    position: relative;
-    color: white;
-    padding-bottom: 100px;
-}
-
+/* ---------- HEADER ELEMENTS ---------- */
 .profile-img {
     position: fixed;
-    top:20px; right:20px;
-    width:80px; height:80px;
-    border-radius:50%;
-    border:3px solid rgba(255,255,255,0.8);
-    object-fit:cover;
-    box-shadow:0 0 15px rgba(0,0,0,0.4);
-    transition: opacity 0.5s ease;
-    z-index:10;
+    top: 25px;
+    right: 25px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.5);
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    object-fit: cover;
+    z-index: 50;
+    transition: opacity .4s ease;
 }
 
 .top-title {
     position: fixed;
-    top:20px; left:50%;
+    top: 25px;
+    left: 50%;
     transform: translateX(-50%);
-    font-size:2em;
-    font-weight:bold;
-    text-align:center;
-    transition: opacity 0.5s ease;
-    z-index:5;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    opacity: .95;
+    z-index: 50;
+    transition: opacity .4s ease;
 }
 
 .scroll-hint {
     position: fixed;
-    bottom:20px; left:50%;
+    bottom: 25px;
+    left: 50%;
     transform: translateX(-50%);
-    font-size:1.2em;
-    color: rgba(255,255,255,0.7);
-    text-shadow:0 0 10px rgba(255,255,255,0.8);
-    display:flex;
-    align-items:center;
-    gap:10px;
-    transition: opacity 0.5s ease;
-    z-index:5;
+    font-size: 1.1rem;
+    opacity: .85;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 50;
 }
 
 .scroll-hint::after {
     content: "⬇";
-    font-size:1.5em;
-    animation:bounce 1s infinite alternate;
+    font-size: 1.4rem;
+    animation: bounce 1s infinite alternate;
 }
 
 @keyframes bounce {
@@ -134,164 +152,166 @@ html { scrollbar-width: none; }
     100% { transform: translateY(10px); }
 }
 
-.content {
-    max-width:800px;
-    margin:250px auto 50px auto;
-    padding:20px;
-    background:rgba(0,0,0,0.4);
-    border-radius:12px;
-    backdrop-filter:blur(5px);
-    box-shadow:0 0 20px rgba(0,0,0,0.3);
+/* ---------- MAIN CONTENT ---------- */
+.main-wrapper {
+    width: 100%;
+    margin: 180px auto 120px;
+    max-width: 900px;
+}
+
+.card {
+    background: rgba(255,255,255,0.08);
+    padding: 35px;
+    border-radius: 18px;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 0 25px rgba(0,0,0,0.35);
+    line-height: 1.8;
+    font-size: 1.2rem;
+    margin-bottom: 35px;
+}
+
+#image-container {
+    margin-top: 60px;
 }
 
 #image-container img {
-    width:100%;
-    display:block;
-    margin:0;
+    width: 100%;
+    border-radius: 14px;
+    margin: 18px 0;
+    box-shadow: 0 0 20px rgba(0,0,0,0.45);
 }
 
+/* ---------- SCROLL PROGRESS ---------- */
 #scroll-progress {
     position: fixed;
-    bottom: 0; left: 0;
+    bottom: 0;
+    left: 0;
     height: 6px;
     width: 0%;
-    background: linear-gradient(90deg, #8a2be2, #d580ff);
-    z-index: 3000;
+    background: linear-gradient(90deg, #ff9cff, #b47cff);
+    z-index: 9999;
+    transition: width .1s linear;
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- ENTRY ANIMATION -->
+<!-- TYPEWRITER ENTRY SCREEN -->
 <div id="entry-screen">
     <div id="typewriter"></div>
-    <div id="wipe"></div>
 </div>
 
-<!-- MAIN SITE AFTER ANIMATION -->
-<div id="site-content">
+<!-- CLICK OVERLAY AFTER TYPEWRITER -->
+<div id="click-overlay">
+    <span>Click to enter kablankooo’s Portfolio</span>
+</div>
 
-<div id="real-site">
+<!-- PURPLE WIPE -->
+<div id="wipe"></div>
 
+<!-- MAIN PORTFOLIO CONTENT -->
 <img src="images/pfp.png" class="profile-img">
 <div class="top-title">kablankooo.github.io</div>
-<div class="scroll-hint">Scroll Down c:</div>
+<div class="scroll-hint">Scroll Down</div>
 
-<div class="content">
-    <p>Welcome to kablankooo's portfolio...</p>
-    <p>All content is for display only.</p>
+<div class="main-wrapper">
+    <div class="card">
+        <p>Welcome to <strong>kablankooo’s portfolio</strong> — a collection of personal projects, programming work, experiments, designs, and anything I'm proud enough to share.</p>
+        <p>Everything on this page exists purely for presentation. You may not reuse, copy, redistribute, or claim any asset featured here.</p>
+    </div>
+
+    <div id="image-container"></div>
 </div>
-
-<div id="image-container"></div>
 
 <div id="scroll-progress"></div>
 
-</div>
-
-</div>
-
 <script>
-/* ------------------- */
-/*  TYPING ANIMATION   */
-/* ------------------- */
-
-const text = "Welcome to Kablankooo.";
+/* ---------- TYPEWRITER ---------- */
 const typewriter = document.getElementById("typewriter");
-
+const text = "Entering kablankooo's Portfolio";
 let idx = 0;
-const speed = 65;
+const speed = 60;
 
 function type() {
     if (idx < text.length) {
-        typewriter.textContent = text.substring(0, idx + 1);
+        typewriter.textContent = text.substring(0, idx+1);
         idx++;
         setTimeout(type, speed);
     } else {
+        typewriter.style.borderRight = "3px solid #9550ff";
         typewriter.style.animation = "blink 0.7s infinite";
-        startWipe();
+        document.getElementById("click-overlay").style.display = "flex";
     }
 }
 
 setTimeout(type, 600);
 
-/* ------------------- */
-/*  WIPE → SHOW SITE   */
-/* ------------------- */
+/* ---------- CLICK TO ENTER ---------- */
+const overlay = document.getElementById("click-overlay");
+overlay.addEventListener("click", () => {
+    overlay.style.display = "none";
 
-function startWipe() {
+    // Show wipe
     const wipe = document.getElementById("wipe");
+    wipe.style.transition = "1s cubic-bezier(0.16,1,0.3,1)";
+    wipe.style.opacity = 1;
+    wipe.style.left = "0%";
 
     setTimeout(() => {
-        wipe.style.transition = "1.2s cubic-bezier(0.16, 1, 0.3, 1)";
-        wipe.style.opacity = "1";
-        wipe.style.left = "0%";
-
-        setTimeout(() => {
-            document.getElementById("entry-screen").style.transition = "0.7s ease";
-            document.getElementById("entry-screen").style.opacity = "0";
-
-            setTimeout(() => {
-                document.getElementById("site-content").style.opacity = "1";
-                document.getElementById("entry-screen").remove();
-                document.body.style.overflow = "auto"; // allow scroll
-            }, 700);
-
-        }, 900);
-
-    }, 250);
-}
-
-/* ------------------- */
-/*   ORIGINAL WEBSITE   */
-/* ------------------- */
-
-const profileImg = document.querySelector('.profile-img');
-const topTitle = document.querySelector('.top-title');
-const scrollHint = document.querySelector('.scroll-hint');
-const progressBar = document.getElementById('scroll-progress');
-
-window.addEventListener('scroll', () => {
-    let scrollY = window.scrollY;
-    profileImg.style.opacity = Math.max(0, Math.min(1, 1 - (scrollY - 50)/(300-50)));
-    topTitle.style.opacity = Math.max(0, 1 - scrollY/200);
-    scrollHint.style.opacity = Math.max(0, Math.min(1, 1 - (scrollY-50)/(250-50)));
-
-    let scrollTop = document.documentElement.scrollTop;
-    let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    progressBar.style.width = (scrollTop / scrollHeight) * 100 + '%';
+        document.getElementById("entry-screen").remove();
+        wipe.style.transition = "0.6s";
+        wipe.style.opacity = 0;
+        document.body.style.overflow = "auto";
+    }, 1000);
 });
 
+/* ---------- SCROLL FADE ELEMENTS ---------- */
+const profileImg = document.querySelector(".profile-img");
+const topTitle = document.querySelector(".top-title");
+const scrollHint = document.querySelector(".scroll-hint");
+const progressBar = document.getElementById("scroll-progress");
+
+window.addEventListener("scroll", () => {
+    let y = window.scrollY;
+    profileImg.style.opacity = Math.max(0, 1 - y / 260);
+    topTitle.style.opacity = Math.max(0, 1 - y / 200);
+    scrollHint.style.opacity = Math.max(0, 1 - y / 180);
+
+    // Progress bar
+    let scrollTop = document.documentElement.scrollTop;
+    let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    progressBar.style.width = (scrollTop / scrollHeight) * 100 + "%";
+});
+
+/* ---------- AUTO IMAGE LOADER ---------- */
 async function loadImages() {
     const container = document.getElementById("image-container");
     let index = 1;
-
-    while (true) {
-        let imgPath = `info/${index}.png`;
-        let exists = await fetch(imgPath, { method:"HEAD" }).then(r => r.ok).catch(()=>false);
+    while(true){
+        let path = `info/${index}.png`;
+        let exists = await fetch(path,{method:"HEAD"}).then(r=>r.ok).catch(()=>false);
         if(!exists) break;
-
         let img = document.createElement("img");
-        img.src = imgPath;
+        img.src = path;
         container.appendChild(img);
         index++;
     }
 }
 loadImages();
 
-/* MUSIC */
+/* ---------- AUDIO ---------- */
 const audio = new Audio("bgmusic.mp3");
 audio.loop = true;
-audio.volume = 0.5;
+audio.volume = 0.45;
 audio.muted = true;
-
 audio.play().catch(()=>{});
 
 document.addEventListener("click", () => {
     audio.muted = false;
     audio.play().catch(()=>{});
-}, { once: true });
-
+}, {once:true});
 </script>
 
 </body>
