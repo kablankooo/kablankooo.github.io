@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link rel="icon" href="images/pfp.png" type="image/png">
+    <title>Kablankooo - My Portfolio</title>
+    <link rel="icon" href="images/pfp.png?v=1" type="image/png">
 
     <style>
+        /* Remove scrollbar */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+        html {
+            scrollbar-width: none; /* Firefox */
+        }
+
         /* Full-page animated gradient background */
         @keyframes gradientFade {
             0% {background-position: 0% 50%;}
@@ -23,11 +32,12 @@
             animation: gradientFade 15s ease infinite;
             position: relative;
             overflow-x: hidden;
+            color: white;
         }
 
         /* Top-right circular profile image */
         .profile-img {
-            position: fixed; /* stays on screen while scrolling */
+            position: fixed;
             top: 20px;
             right: 20px;
             width: 80px;
@@ -40,45 +50,105 @@
             z-index: 10;
         }
 
+        /* Top title */
+        .top-title {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            transition: opacity 0.5s ease;
+            z-index: 5;
+        }
+
+        /* Bottom "Scroll Down" hint */
+        .scroll-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2em;
+            color: rgba(255,255,255,0.7);
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: opacity 0.5s ease;
+            z-index: 5;
+        }
+
+        .scroll-hint::after {
+            content: "⬇";
+            font-size: 1.5em;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
+
         /* Semi-transparent content container */
         .content {
             max-width: 800px;
-            margin: 150px auto 50px auto; /* top margin so it’s below the profile image initially */
+            margin: 250px auto 50px auto;
             padding: 20px;
             background: rgba(0, 0, 0, 0.4);
             border-radius: 12px;
             color: white;
-            backdrop-filter: blur(5px); /* nice glassy effect */
+            backdrop-filter: blur(5px);
             box-shadow: 0 0 20px rgba(0,0,0,0.3);
         }
     </style>
 </head>
 <body>
     <img src="images/pfp.png" alt="Profile Picture" class="profile-img">
+    <div class="top-title">Kablankooo - My Portfolio</div>
+    <div class="scroll-hint">Scroll Down c:</div>
 
     <div class="content">
-        <h1>Welcome to My Portfolio</h1>
-        <p>
-            This is a demo portfolio page. As you scroll down, the profile image will fade away and the content container will resize automatically based on the text inside.
-        </p>
-        <p>
-            Add more content here to see the effect. The rectangle container grows with the content and stays semi-transparent over the animated purple gradient background.
-        </p>
-        <p>Keep scrolling to watch the image fade!</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin efficitur.</p>
-        <p>More content...</p>
+        <h1>Welcome!</h1>
+        <p>This is a demo portfolio page with fading effects. As you scroll down:</p>
+        <ul>
+            <li>The profile image fades but stays in top-right.</li>
+            <li>The top title fades away.</li>
+            <li>The bottom “Scroll Down” hint disappears.</li>
+            <li>The semi-transparent content container grows with content.</li>
+        </ul>
+        <p>Add more content to see scrolling in action.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin efficitur dolor et dolor tempor, non aliquam ex fringilla.</p>
+        <p>Keep adding paragraphs to extend the page...</p>
+        <p>Even more content!</p>
+        <p>Scroll to watch all the fade effects.</p>
     </div>
 
     <script>
         const profileImg = document.querySelector('.profile-img');
+        const topTitle = document.querySelector('.top-title');
+        const scrollHint = document.querySelector('.scroll-hint');
+
         window.addEventListener('scroll', () => {
-            // fade out image as you scroll down
             let scrollY = window.scrollY;
-            let fadeStart = 50;  // start fading after 50px
-            let fadeEnd = 300;   // fully faded after 300px
+
+            // Fade out profile image
+            let fadeStart = 50;
+            let fadeEnd = 300;
             let opacity = 1 - (scrollY - fadeStart) / (fadeEnd - fadeStart);
             opacity = Math.max(0, Math.min(1, opacity));
             profileImg.style.opacity = opacity;
+
+            // Fade out top title faster
+            let titleFadeEnd = 200;
+            let titleOpacity = 1 - scrollY / titleFadeEnd;
+            topTitle.style.opacity = Math.max(0, titleOpacity);
+
+            // Fade out scroll hint as soon as scrollY > 100
+            let hintFadeStart = 50;
+            let hintFadeEnd = 250;
+            let hintOpacity = 1 - (scrollY - hintFadeStart) / (hintFadeEnd - hintFadeStart);
+            scrollHint.style.opacity = Math.max(0, Math.min(1, hintOpacity));
         });
     </script>
 </body>
