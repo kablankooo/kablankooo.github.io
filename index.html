@@ -183,16 +183,29 @@
     </script>
 
     <script>
+        // Create audio element
         const audio = new Audio("bgmusic.mp3");
         audio.loop = true;
-        
-        function startMusic() {
-            audio.play().catch(e => console.log("Autoplay blocked, user interaction required"));
-            window.removeEventListener("mousemove", startMusic);
+        audio.volume = 0.5; // optional starting volume
+        audio.muted = true;  // start muted so autoplay is allowed
+        audio.play().catch(e => console.log("Muted autoplay started"));
+    
+        // Function to unmute on first user interaction
+        function unmute() {
+            audio.muted = false; // unmute now allowed by browser
+            window.removeEventListener("mousemove", unmute);
+            window.removeEventListener("scroll", unmute);
+            window.removeEventListener("click", unmute);
+            window.removeEventListener("keydown", unmute);
         }
-        
-        window.addEventListener("mousemove", startMusic); // start on first click
+    
+        // Listen for interactions
+        window.addEventListener("mousemove", unmute);
+        window.addEventListener("scroll", unmute);
+        window.addEventListener("click", unmute);
+        window.addEventListener("keydown", unmute);
     </script>
+
 
 
 
