@@ -3,151 +3,251 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>kablankooo</title>
+<title>kablankooo • Portfolio</title>
 <link rel="icon" href="images/logo.png?v=1" type="image/png">
+
 <style>
-    /* Remove scrollbar */
-    ::-webkit-scrollbar { width: 0px; background: transparent; }
-    html { scrollbar-width: none; }
+/* ---------- GLOBAL RESET ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    /* Full-page gradient background */
-    @keyframes gradientFade {
-        0% {background-position: 0% 50%;}
-        50% {background-position: 100% 50%;}
-        100% {background-position: 0% 50%;}
-    }
-    body {
-        margin: 0;
-        min-height: 200vh;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(-45deg, #6a0dad, #9b30ff, #4b0082, #8a2be2);
-        background-size: 400% 400%;
-        animation: gradientFade 15s ease infinite;
-        position: relative;
-        overflow-x: hidden;
-        color: white;
-    }
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    font-family: "Inter", Arial, sans-serif;
+}
 
-    /* Overlay */
-    #start-overlay {
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.85);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        cursor: pointer;
-        text-align: center;
-        transition: opacity 0.6s ease;
-    }
-    #start-overlay.hidden { opacity: 0; pointer-events: none; }
+/* ---------- BACKGROUND GRADIENT ANIMATION ---------- */
+@keyframes bgFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-    /* Glowing text */
-    #start-overlay span {
-        font-size: 2em;
-        font-weight: bold;
-        color: white;
-        text-shadow:
-            0 0 5px #fff,
-            0 0 10px #fff,
-            0 0 20px #fff,
-            0 0 40px #ff00ff,
-            0 0 80px #ff00ff;
-        animation: glow 1.5s ease-in-out infinite alternate;
-    }
-    @keyframes glow {
-        0% { text-shadow: 0 0 5px #fff,0 0 10px #fff,0 0 20px #fff,0 0 40px #ff00ff,0 0 80px #ff00ff; }
-        100% { text-shadow: 0 0 10px #fff,0 0 20px #fff,0 0 40px #fff,0 0 60px #ff00ff,0 0 120px #ff00ff; }
-    }
+body {
+    background: linear-gradient(-45deg, #6a0dad, #8a2be2, #4b0082, #9c4dff);
+    background-size: 400% 400%;
+    animation: bgFlow 18s ease infinite;
+    color: white;
+}
 
-    /* Existing content styling */
-    .profile-img { position: fixed; top:20px; right:20px; width:80px; height:80px; border-radius:50%; border:3px solid rgba(255,255,255,0.8); object-fit:cover; box-shadow:0 0 15px rgba(0,0,0,0.4); transition: opacity 0.5s ease; z-index:10; }
-    .top-title { position: fixed; top:20px; left:50%; transform: translateX(-50%); font-size:2em; font-weight:bold; text-align:center; transition: opacity 0.5s ease; z-index:5; }
-    .scroll-hint { position: fixed; bottom:20px; left:50%; transform: translateX(-50%); font-size:1.2em; color: rgba(255,255,255,0.7); text-shadow:0 0 10px rgba(255,255,255,0.8); display:flex; align-items:center; gap:10px; transition: opacity 0.5s ease; z-index:5; }
-    .scroll-hint::after { content: "⬇"; font-size:1.5em; animation:bounce 1s infinite alternate; }
-    @keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(10px); } }
-    .content { max-width:800px; margin:250px auto 50px auto; padding:20px; background:rgba(0,0,0,0.4); border-radius:12px; color:white; backdrop-filter:blur(5px); box-shadow:0 0 20px rgba(0,0,0,0.3); }
-    #image-container { position:relative; width:100%; margin-top:100vh; }
-    #image-container img { width:100%; height:auto; display:block; margin:0; }
+/* ---------- ENTRY OVERLAY ---------- */
+#start-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 0, 20, 0.88);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    cursor: pointer;
+    transition: opacity .7s ease;
+}
 
-    /* Scroll progress bar */
-    #scroll-progress {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        height: 6px;
-        width: 0%;
-        background: linear-gradient(90deg, #8a2be2, #d580ff);
-        z-index: 10000;
-        transition: width 0.1s ease-out;
-    }
+#start-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#start-overlay span {
+    font-size: 2.2em;
+    letter-spacing: 1px;
+    padding: 20px 40px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(200,0,255,0.4);
+    backdrop-filter: blur(10px);
+    animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: .9; }
+    100% { transform: scale(1.05); opacity: 1; }
+}
+
+/* ---------- HEADER ELEMENTS ---------- */
+.profile-img {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.5);
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    object-fit: cover;
+    z-index: 50;
+    transition: opacity .4s ease;
+}
+
+.top-title {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    opacity: .95;
+    z-index: 50;
+    transition: opacity .4s ease;
+}
+
+.scroll-hint {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.1rem;
+    opacity: .85;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 50;
+}
+
+.scroll-hint::after {
+    content: "⬇";
+    font-size: 1.4rem;
+    animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(10px); }
+}
+
+/* ---------- MAIN CONTENT AREA ---------- */
+.main-wrapper {
+    width: 100%;
+    margin: 180px auto 120px;
+    max-width: 900px;
+}
+
+.card {
+    background: rgba(255,255,255,0.08);
+    padding: 35px;
+    border-radius: 18px;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 0 25px rgba(0,0,0,0.35);
+    line-height: 1.8;
+    font-size: 1.2rem;
+    margin-bottom: 35px;
+}
+
+/* ---------- IMAGES BELOW CONTENT ---------- */
+#image-container {
+    margin-top: 60px;
+}
+
+#image-container img {
+    width: 100%;
+    border-radius: 14px;
+    margin: 18px 0;
+    box-shadow: 0 0 20px rgba(0,0,0,0.45);
+}
+
+/* ---------- SCROLL PROGRESS BAR ---------- */
+#scroll-progress {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 6px;
+    width: 0%;
+    background: linear-gradient(90deg, #ff9cff, #b47cff);
+    z-index: 9999;
+    transition: width .1s linear;
+}
 </style>
 </head>
+
 <body>
 
-<div id="start-overlay"><span>Click to reveal kablankooo's portfolio c:</span></div>
-
-<img src="images/pfp.png" alt="Profile Picture" class="profile-img">
-<div class="top-title">kablankooo.github.io</div>
-<div class="scroll-hint">Scroll Down c:</div>
-<div class="content">
-    <p>Welcome to kablankooo's portfolio. Here, you may find everything that kablankooo has worked on privately or publicly. Large programming projects may be posted here from time to time.</p>
-    <p>All content in this page is only to be used to share this portfolio. You have no right to download these assets or claim these as your own. This is all strictly for display purposes.</p>
+<div id="start-overlay">
+    <span>Click to enter kablankooo’s portfolio</span>
 </div>
-<div id="image-container"></div>
 
-<!-- Scroll progress bar -->
+<img src="images/pfp.png" class="profile-img">
+<div class="top-title">kablankooo.github.io</div>
+<div class="scroll-hint">Scroll Down</div>
+
+<div class="main-wrapper">
+    <div class="card">
+        <p>
+            Welcome to <strong>kablankooo’s portfolio</strong> — a collection of personal projects, programming work, experiments, designs, and anything I'm proud enough to share.
+        </p>
+        <p>
+            Everything on this page exists purely for presentation.  
+            You may not reuse, copy, redistribute, or claim any asset featured here.
+        </p>
+    </div>
+
+    <div id="image-container"></div>
+</div>
+
 <div id="scroll-progress"></div>
 
 <script>
-const profileImg = document.querySelector('.profile-img');
-const topTitle = document.querySelector('.top-title');
-const scrollHint = document.querySelector('.scroll-hint');
-const progressBar = document.getElementById('scroll-progress');
+/* ---------- SCROLL FADES ---------- */
+const profileImg = document.querySelector(".profile-img");
+const topTitle = document.querySelector(".top-title");
+const scrollHint = document.querySelector(".scroll-hint");
+const progressBar = document.getElementById("scroll-progress");
 
-window.addEventListener('scroll', () => {
-    let scrollY = window.scrollY;
-    profileImg.style.opacity = Math.max(0, Math.min(1, 1 - (scrollY - 50)/(300-50)));
-    topTitle.style.opacity = Math.max(0, 1 - scrollY/200);
-    scrollHint.style.opacity = Math.max(0, Math.min(1, 1 - (scrollY-50)/(250-50)));
+window.addEventListener("scroll", () => {
+    let y = window.scrollY;
 
-    // Update progress bar
-    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    profileImg.style.opacity = Math.max(0, 1 - y / 260);
+    topTitle.style.opacity = Math.max(0, 1 - y / 200);
+    scrollHint.style.opacity = Math.max(0, 1 - y / 180);
+
+    // Progress bar
+    let scrollTop = document.documentElement.scrollTop;
     let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    let scrollPercent = (scrollTop / scrollHeight) * 100;
-    progressBar.style.width = scrollPercent + '%';
+    progressBar.style.width = (scrollTop / scrollHeight) * 100 + "%";
 });
 
-// Load images
-const imgContainer = document.getElementById("image-container");
+/* ---------- AUTO IMAGE LOADER ---------- */
 async function loadImages() {
+    const container = document.getElementById("image-container");
     let index = 1;
-    while(true){
-        let imgPath = `info/${index}.png`;
-        let exists = await fetch(imgPath,{method:"HEAD"}).then(r=>r.ok).catch(()=>false);
-        if(!exists) break;
+
+    while (true) {
+        let path = `info/${index}.png`;
+        let exists = await fetch(path, { method: "HEAD" })
+            .then(r => r.ok)
+            .catch(() => false);
+
+        if (!exists) break;
+
         let img = document.createElement("img");
-        img.src = imgPath;
-        imgContainer.appendChild(img);
+        img.src = path;
+        container.appendChild(img);
+
         index++;
     }
 }
 loadImages();
 
-// Audio
+/* ---------- AUDIO ---------- */
 const audio = new Audio("bgmusic.mp3");
 audio.loop = true;
-audio.volume = 0.5;
+audio.volume = 0.45;
 audio.muted = true;
-audio.play().catch(()=>console.log("Muted autoplay started"));
 
-// Overlay click to reveal
+audio.play().catch(() => console.log("Autoplay muted"));
+
+/* ---------- OVERLAY CLICK ---------- */
 const overlay = document.getElementById("start-overlay");
-overlay.addEventListener("click", ()=>{
-    overlay.classList.add("hidden"); // fade out overlay
-    audio.muted = false;            // unmute
-    audio.play().catch(()=>{});      // ensure it plays
+overlay.addEventListener("click", () => {
+    overlay.classList.add("hidden");
+    audio.muted = false;
+    audio.play().catch(() => {});
 });
 </script>
 
