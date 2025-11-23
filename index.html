@@ -3,252 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>kablankooo • Portfolio</title>
-<link rel="icon" href="images/logo.png?v=1" type="image/png">
+<title>Kablankooo</title>
 
 <style>
-/* ---------- GLOBAL RESET ---------- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    /* GLOBAL */
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background: #0a0a0f;
+        font-family: "Poppins", sans-serif;
+        color: white;
+    }
 
-html, body {
-    height: 100%;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    font-family: "Inter", Arial, sans-serif;
-}
+    /* ENTRY WRAPPER */
+    #entry-screen {
+        position: fixed;
+        inset: 0;
+        background: #05050a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        z-index: 1000;
+        overflow: hidden;
+    }
 
-/* ---------- BACKGROUND GRADIENT ANIMATION ---------- */
-@keyframes bgFlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+    /* TYPING TEXT */
+    #typewriter {
+        font-size: 36px;
+        font-weight: 600;
+        white-space: nowrap;
+        border-right: 3px solid #9550ff;
+        width: 0;
+        overflow: hidden;
+        animation: typing 2.3s steps(30) forwards, blink 0.7s infinite;
+    }
 
-body {
-    background: linear-gradient(-45deg, #6a0dad, #8a2be2, #4b0082, #9c4dff);
-    background-size: 400% 400%;
-    animation: bgFlow 18s ease infinite;
-    color: white;
-}
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 380px }
+    }
+    @keyframes blink {
+        0% { border-color: transparent; }
+        50% { border-color: #9550ff; }
+        100% { border-color: transparent; }
+    }
 
-/* ---------- ENTRY OVERLAY ---------- */
-#start-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(10, 0, 20, 0.88);
-    backdrop-filter: blur(12px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    cursor: pointer;
-    transition: opacity .7s ease;
-}
+    /* PURPLE ENERGY WIPE */
+    #wipe {
+        position: absolute;
+        left: -200%;
+        top: 0;
+        width: 200%;
+        height: 100%;
+        background: linear-gradient(115deg, transparent 0%, #8b2cff 50%, transparent 100%);
+        filter: blur(40px) saturate(1.8);
+        transform: skewX(-20deg);
+        opacity: 0;
+    }
 
-#start-overlay.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
+    /* MAIN SITE CONTENT */
+    #site-content {
+        opacity: 0;
+        transition: opacity 1.2s ease;
+        padding: 40px;
+        overflow-y: auto;
+    }
 
-#start-overlay span {
-    font-size: 2.2em;
-    letter-spacing: 1px;
-    padding: 20px 40px;
-    background: rgba(255,255,255,0.07);
-    border-radius: 16px;
-    box-shadow: 0 0 30px rgba(200,0,255,0.4);
-    backdrop-filter: blur(10px);
-    animation: pulse 2s infinite alternate;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); opacity: .9; }
-    100% { transform: scale(1.05); opacity: 1; }
-}
-
-/* ---------- HEADER ELEMENTS ---------- */
-.profile-img {
-    position: fixed;
-    top: 25px;
-    right: 25px;
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.5);
-    box-shadow: 0 0 20px rgba(0,0,0,0.4);
-    object-fit: cover;
-    z-index: 50;
-    transition: opacity .4s ease;
-}
-
-.top-title {
-    position: fixed;
-    top: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    opacity: .95;
-    z-index: 50;
-    transition: opacity .4s ease;
-}
-
-.scroll-hint {
-    position: fixed;
-    bottom: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.1rem;
-    opacity: .85;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    z-index: 50;
-}
-
-.scroll-hint::after {
-    content: "⬇";
-    font-size: 1.4rem;
-    animation: bounce 1s infinite alternate;
-}
-
-@keyframes bounce {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(10px); }
-}
-
-/* ---------- MAIN CONTENT AREA ---------- */
-.main-wrapper {
-    width: 100%;
-    margin: 180px auto 120px;
-    max-width: 900px;
-}
-
-.card {
-    background: rgba(255,255,255,0.08);
-    padding: 35px;
-    border-radius: 18px;
-    backdrop-filter: blur(14px);
-    box-shadow: 0 0 25px rgba(0,0,0,0.35);
-    line-height: 1.8;
-    font-size: 1.2rem;
-    margin-bottom: 35px;
-}
-
-/* ---------- IMAGES BELOW CONTENT ---------- */
-#image-container {
-    margin-top: 60px;
-}
-
-#image-container img {
-    width: 100%;
-    border-radius: 14px;
-    margin: 18px 0;
-    box-shadow: 0 0 20px rgba(0,0,0,0.45);
-}
-
-/* ---------- SCROLL PROGRESS BAR ---------- */
-#scroll-progress {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    height: 6px;
-    width: 0%;
-    background: linear-gradient(90deg, #ff9cff, #b47cff);
-    z-index: 9999;
-    transition: width .1s linear;
-}
 </style>
 </head>
 
 <body>
 
-<div id="start-overlay">
-    <span>Click to enter kablankooo’s portfolio</span>
+<!-- ENTRY SCREEN -->
+<div id="entry-screen">
+    <div id="typewriter">Welcome to Kablankooo.</div>
+    <div id="wipe"></div>
 </div>
 
-<img src="images/pfp.png" class="profile-img">
-<div class="top-title">kablankooo.github.io</div>
-<div class="scroll-hint">Scroll Down</div>
-
-<div class="main-wrapper">
-    <div class="card">
-        <p>
-            Welcome to <strong>kablankooo’s portfolio</strong> — a collection of personal projects, programming work, experiments, designs, and anything I'm proud enough to share.
-        </p>
-        <p>
-            Everything on this page exists purely for presentation.  
-            You may not reuse, copy, redistribute, or claim any asset featured here.
-        </p>
-    </div>
-
-    <div id="image-container"></div>
+<!-- MAIN SITE CONTENT -->
+<div id="site-content">
+    <h1 style="font-size: 50px; margin-top: 0;">Your Actual Website</h1>
+    <p style="font-size: 20px; opacity: 0.7;">
+        This is where your real portfolio / homepage content goes.
+        The intro animation hides this until ready.
+    </p>
 </div>
-
-<div id="scroll-progress"></div>
 
 <script>
-/* ---------- SCROLL FADES ---------- */
-const profileImg = document.querySelector(".profile-img");
-const topTitle = document.querySelector(".top-title");
-const scrollHint = document.querySelector(".scroll-hint");
-const progressBar = document.getElementById("scroll-progress");
 
-window.addEventListener("scroll", () => {
-    let y = window.scrollY;
+    // After typing finishes → start wipe animation
+    setTimeout(() => {
+        const wipe = document.getElementById("wipe");
+        wipe.style.transition = "1.2s cubic-bezier(0.16, 1, 0.3, 1)";
+        wipe.style.opacity = "1";
+        wipe.style.left = "0%";
 
-    profileImg.style.opacity = Math.max(0, 1 - y / 260);
-    topTitle.style.opacity = Math.max(0, 1 - y / 200);
-    scrollHint.style.opacity = Math.max(0, 1 - y / 180);
+        // Remove entry screen shortly after
+        setTimeout(() => {
+            document.getElementById("entry-screen").style.transition = "0.6s ease";
+            document.getElementById("entry-screen").style.opacity = "0";
 
-    // Progress bar
-    let scrollTop = document.documentElement.scrollTop;
-    let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    progressBar.style.width = (scrollTop / scrollHeight) * 100 + "%";
-});
+            // Reveal site
+            setTimeout(() => {
+                document.getElementById("site-content").style.opacity = "1";
+                document.getElementById("entry-screen").remove();
+            }, 600);
 
-/* ---------- AUTO IMAGE LOADER ---------- */
-async function loadImages() {
-    const container = document.getElementById("image-container");
-    let index = 1;
+        }, 1000);
 
-    while (true) {
-        let path = `info/${index}.png`;
-        let exists = await fetch(path, { method: "HEAD" })
-            .then(r => r.ok)
-            .catch(() => false);
+    }, 2500); // matches typing duration
 
-        if (!exists) break;
-
-        let img = document.createElement("img");
-        img.src = path;
-        container.appendChild(img);
-
-        index++;
-    }
-}
-loadImages();
-
-/* ---------- AUDIO ---------- */
-const audio = new Audio("bgmusic.mp3");
-audio.loop = true;
-audio.volume = 0.45;
-audio.muted = true;
-
-audio.play().catch(() => console.log("Autoplay muted"));
-
-/* ---------- OVERLAY CLICK ---------- */
-const overlay = document.getElementById("start-overlay");
-overlay.addEventListener("click", () => {
-    overlay.classList.add("hidden");
-    audio.muted = false;
-    audio.play().catch(() => {});
-});
 </script>
 
 </body>
