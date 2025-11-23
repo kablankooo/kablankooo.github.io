@@ -1,188 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kablankooo - My Portfolio</title>
-<link rel="icon" href="images/pfp.png?v=1" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kablankooo - My Portfolio</title>
+    <link rel="icon" href="images/pfp.png?v=1" type="image/png">
 
-<style>
-    /* Hide scrollbar */
-    ::-webkit-scrollbar { width: 0; background: transparent; }
-    html { scrollbar-width: none; }
+    <style>
+        /* Remove scrollbar */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+        html {
+            scrollbar-width: none; /* Firefox */
+        }
 
-    body {
-        margin: 0;
-        min-height: 200vh;
-        font-family: Arial, sans-serif;
-        overflow-x: hidden;
-        color: white;
-    }
+        /* Full-page animated gradient background */
+        @keyframes gradientFade {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
 
-    /* Backdrop container */
-    .backdrop-container {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        z-index: -2;
-        overflow: hidden;
-    }
+        body {
+            margin: 0;
+            min-height: 200vh; /* enough height to scroll */
+            font-family: Arial, sans-serif;
+            background: linear-gradient(-45deg, #6a0dad, #9b30ff, #4b0082, #8a2be2);
+            background-size: 400% 400%;
+            animation: gradientFade 15s ease infinite;
+            position: relative;
+            overflow-x: hidden;
+            color: white;
+        }
 
-    .backdrop {
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background-size: cover;
-        background-position: center;
-        opacity: 0;
-        transition: opacity 2s ease;
-        z-index: -2;
-    }
+        /* Top-right circular profile image */
+        .profile-img {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            object-fit: cover;
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+            transition: opacity 0.5s ease;
+            z-index: 10;
+        }
 
-    /* Purple gradient overlay */
-    .gradient {
-        position: fixed;
-        top: 0; left: 0;
-        width: 50%; height: 100%;
-        background: linear-gradient(to bottom, rgba(138,43,226,0.7), rgba(106,13,173,0.7));
-        z-index: -1;
-        pointer-events: none;
-    }
+        /* Top title */
+        .top-title {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            transition: opacity 0.5s ease;
+            z-index: 5;
+        }
 
-    /* Top-right circular profile image */
-    .profile-img {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        border: 3px solid rgba(255,255,255,0.8);
-        object-fit: cover;
-        box-shadow: 0 0 15px rgba(0,0,0,0.4);
-        transition: opacity 0.5s ease;
-        z-index: 10;
-    }
+        /* Bottom "Scroll Down" hint */
+        .scroll-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2em;
+            color: rgba(255,255,255,0.7);
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: opacity 0.5s ease;
+            z-index: 5;
+        }
 
-    /* Top title */
-    .top-title {
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 2em;
-        font-weight: bold;
-        text-align: center;
-        transition: opacity 0.5s ease;
-        z-index: 5;
-    }
+        .scroll-hint::after {
+            content: "⬇";
+            font-size: 1.5em;
+            animation: bounce 1s infinite alternate;
+        }
 
-    /* Bottom scroll hint */
-    .scroll-hint {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 1.2em;
-        color: rgba(255,255,255,0.7);
-        text-shadow: 0 0 10px rgba(255,255,255,0.8);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        transition: opacity 0.5s ease;
-        z-index: 5;
-    }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
 
-    .scroll-hint::after {
-        content: "⬇";
-        font-size: 1.5em;
-        animation: bounce 1s infinite alternate;
-    }
-
-    @keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(10px); } }
-
-    /* Semi-transparent content container */
-    .content {
-        max-width: 800px;
-        margin: 250px auto 50px auto;
-        padding: 20px;
-        background: rgba(0,0,0,0.4);
-        border-radius: 12px;
-        color: white;
-        backdrop-filter: blur(5px);
-        box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    }
-</style>
+        /* Semi-transparent content container */
+        .content {
+            max-width: 800px;
+            margin: 250px auto 50px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            color: white;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+    </style>
 </head>
 <body>
+    <img src="images/pfp.png" alt="Profile Picture" class="profile-img">
+    <div class="top-title">Kablankooo - My Portfolio</div>
+    <div class="scroll-hint">Scroll Down c:</div>
 
-<div class="backdrop-container">
-    <div class="backdrop" id="backdrop1"></div>
-    <div class="backdrop" id="backdrop2"></div>
-    <div class="gradient"></div>
-</div>
+    <div class="content">
+        <h1>Welcome!</h1>
+        <p>This is a demo portfolio page with fading effects. As you scroll down:</p>
+        <ul>
+            <li>The profile image fades but stays in top-right.</li>
+            <li>The top title fades away.</li>
+            <li>The bottom “Scroll Down” hint disappears.</li>
+            <li>The semi-transparent content container grows with content.</li>
+        </ul>
+        <p>Add more content to see scrolling in action.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin efficitur dolor et dolor tempor, non aliquam ex fringilla.</p>
+        <p>Keep adding paragraphs to extend the page...</p>
+        <p>Even more content!</p>
+        <p>Scroll to watch all the fade effects.</p>
+    </div>
 
-<img src="images/pfp.png" alt="Profile Picture" class="profile-img">
-<div class="top-title">Kablankooo - My Portfolio</div>
-<div class="scroll-hint">Scroll Down c:</div>
+    <script>
+        const profileImg = document.querySelector('.profile-img');
+        const topTitle = document.querySelector('.top-title');
+        const scrollHint = document.querySelector('.scroll-hint');
 
-<div class="content">
-    <h1>Welcome!</h1>
-    <p>This page now has a looping backdrop slideshow with smooth purple gradient overlay.</p>
-    <p>Scroll down to see fading effects for the profile icon, title, and scroll hint.</p>
-</div>
+        window.addEventListener('scroll', () => {
+            let scrollY = window.scrollY;
 
-<script>
-const profileImg = document.querySelector('.profile-img');
-const topTitle = document.querySelector('.top-title');
-const scrollHint = document.querySelector('.scroll-hint');
+            // Fade out profile image
+            let fadeStart = 50;
+            let fadeEnd = 300;
+            let opacity = 1 - (scrollY - fadeStart) / (fadeEnd - fadeStart);
+            opacity = Math.max(0, Math.min(1, opacity));
+            profileImg.style.opacity = opacity;
 
-window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    profileImg.style.opacity = Math.max(0, Math.min(1, 1 - (scrollY - 50)/250));
-    topTitle.style.opacity = Math.max(0, 1 - scrollY / 200);
-    scrollHint.style.opacity = Math.max(0, Math.min(1, 1 - (scrollY - 50)/200));
-});
+            // Fade out top title faster
+            let titleFadeEnd = 200;
+            let titleOpacity = 1 - scrollY / titleFadeEnd;
+            topTitle.style.opacity = Math.max(0, titleOpacity);
 
-// Backdrop images
-const images = [
-    "backdrops/backdrop1.png",
-    "backdrops/backdrop2.png",
-    "backdrops/backdrop3.png"
-];
-
-const backdrop1 = document.getElementById('backdrop1');
-const backdrop2 = document.getElementById('backdrop2');
-
-let currentIndex = 0;
-let nextIndex = 1;
-
-// Initialize
-backdrop1.style.backgroundImage = `url('${images[currentIndex]}')`;
-backdrop1.style.opacity = 1;
-backdrop2.style.backgroundImage = `url('${images[nextIndex]}')`;
-backdrop2.style.opacity = 0;
-
-setInterval(() => {
-    // Fade next in
-    backdrop2.style.opacity = 1;
-    backdrop1.style.opacity = 0;
-
-    // After fade completes, swap roles and update nextIndex
-    setTimeout(() => {
-        currentIndex = nextIndex;
-        nextIndex = (nextIndex + 1) % images.length;
-
-        // Swap div roles visually
-        const temp = backdrop1.style.backgroundImage;
-        backdrop1.style.backgroundImage = backdrop2.style.backgroundImage;
-        backdrop2.style.backgroundImage = `url('${images[nextIndex]}')`;
-
-        backdrop1.style.opacity = 1;
-        backdrop2.style.opacity = 0;
-    }, 2000); // match CSS transition time
-}, 10000); // 10s per image
-</script>
-
+            // Fade out scroll hint as soon as scrollY > 100
+            let hintFadeStart = 50;
+            let hintFadeEnd = 250;
+            let hintOpacity = 1 - (scrollY - hintFadeStart) / (hintFadeEnd - hintFadeStart);
+            scrollHint.style.opacity = Math.max(0, Math.min(1, hintOpacity));
+        });
+    </script>
 </body>
 </html>
