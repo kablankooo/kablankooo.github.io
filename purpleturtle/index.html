@@ -5,11 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Project In Progress</title>
 <style>
-    /* Remove scrollbar */
-    ::-webkit-scrollbar { width: 0px; background: transparent; }
-    html { scrollbar-width: none; }
-
-    /* Full-page gradient background */
     @keyframes gradientFade {
         0% {background-position: 0% 50%;}
         50% {background-position: 100% 50%;}
@@ -49,37 +44,11 @@
         100% { text-shadow: 0 0 10px #fff,0 0 20px #fff,0 0 40px #fff,0 0 60px #ff0000,0 0 120px #ff0000; }
     }
 
-    /* Subtext */
     p {
         font-size: 1.5em;
         margin-top: 20px;
         color: #fff;
         text-shadow: 0 0 5px #000;
-    }
-
-    /* Scroll hint */
-    .scroll-hint {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 1.2em;
-        color: rgba(255,255,255,0.9);
-        text-shadow:0 0 10px rgba(0,0,0,0.8);
-        animation: bounce 1s infinite alternate;
-    }
-    @keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(10px); } }
-
-    /* Scroll progress bar */
-    #scroll-progress {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        height: 6px;
-        width: 0%;
-        background: linear-gradient(90deg, #ff0000, #ff8c00);
-        z-index: 1000;
-        transition: width 0.1s ease-out;
     }
 </style>
 </head>
@@ -89,19 +58,6 @@
     <h1>🚧 PROJECT IN PROGRESS 🚧</h1>
     <p>Comms code will be posted soon. Stay tuned!</p>
 </div>
-<div class="scroll-hint">Scroll Down ⬇</div>
-<div id="scroll-progress"></div>
-
-<script>
-// Scroll progress bar
-const progressBar = document.getElementById('scroll-progress');
-window.addEventListener('scroll', () => {
-    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    let scrollPercent = (scrollTop / scrollHeight) * 100;
-    progressBar.style.width = scrollPercent + '%';
-});
-</script>
 
 </body>
 </html>
