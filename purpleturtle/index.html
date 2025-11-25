@@ -3,60 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Project In Progress</title>
+<title>ER:LC Moderation Bot - Coming Soon</title>
 <style>
-    @keyframes gradientFade {
-        0% {background-position: 0% 50%;}
-        50% {background-position: 100% 50%;}
-        100% {background-position: 0% 50%;}
-    }
-    body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(-45deg, #ff0000, #ff8c00, #ffff00, #ff0000);
-        background-size: 400% 400%;
-        animation: gradientFade 15s ease infinite;
-        color: white;
-        text-align: center;
-        overflow: hidden;
-    }
+/* Gradient animated background */
+@keyframes bgShift {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial Black', sans-serif;
+    background: linear-gradient(-45deg, #ff0000, #ff8c00, #ffff00, #ff0000, #ff00ff, #00ffff);
+    background-size: 600% 600%;
+    animation: bgShift 20s ease infinite;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
 
-    /* Glowing under-construction text */
-    h1 {
-        font-size: 3em;
-        font-weight: bold;
-        color: white;
-        text-shadow:
-            0 0 5px #fff,
-            0 0 10px #fff,
-            0 0 20px #fff,
-            0 0 40px #ff0000,
-            0 0 80px #ff0000;
-        animation: glow 1.5s ease-in-out infinite alternate;
-        margin: 0;
-    }
-    @keyframes glow {
-        0% { text-shadow: 0 0 5px #fff,0 0 10px #fff,0 0 20px #fff,0 0 40px #ff0000,0 0 80px #ff0000; }
-        100% { text-shadow: 0 0 10px #fff,0 0 20px #fff,0 0 40px #fff,0 0 60px #ff0000,0 0 120px #ff0000; }
-    }
+/* Neon warning stripes overlay */
+body::before {
+    content: "";
+    position: fixed;
+    top:0; left:0; width:100%; height:100%;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(255,0,0,0.3),
+        rgba(255,0,0,0.3) 20px,
+        rgba(0,0,0,0.3) 20px,
+        rgba(0,0,0,0.3) 40px
+    );
+    pointer-events: none;
+    animation: stripeShift 2s linear infinite;
+}
+@keyframes stripeShift {
+    0% {background-position: 0 0;}
+    100% {background-position: 40px 40px;}
+}
 
-    p {
-        font-size: 1.5em;
-        margin-top: 20px;
-        color: #fff;
-        text-shadow: 0 0 5px #000;
-    }
+/* Glowing project title */
+h1 {
+    font-size: 4em;
+    font-weight: bold;
+    color: #ff0000;
+    text-transform: uppercase;
+    text-shadow:
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 20px #ff0000,
+        0 0 40px #ff0000,
+        0 0 80px #ff0000,
+        0 0 120px #ff00ff;
+    animation: neonGlow 1.5s ease-in-out infinite alternate, flicker 3s infinite;
+    margin: 0;
+}
+@keyframes neonGlow {
+    0% { text-shadow: 0 0 10px #fff,0 0 20px #fff,0 0 40px #ff0000,0 0 80px #ff0000,0 0 120px #ff00ff; }
+    100% { text-shadow: 0 0 20px #fff,0 0 40px #fff,0 0 60px #ff0000,0 0 100px #ff0000,0 0 200px #ff00ff; }
+}
+@keyframes flicker {
+    0%,19%,21%,23%,25%,54%,56%,100% {opacity:1;}
+    20%,22%,24%,55% {opacity:0.4;}
+}
+
+/* Subtext */
+p {
+    font-size: 1.8em;
+    margin-top: 25px;
+    color: #fff;
+    text-shadow: 0 0 10px #000;
+    animation: pulse 1.2s infinite alternate;
+}
+@keyframes pulse {
+    0% { text-shadow: 0 0 10px #fff,0 0 20px #ff0000; transform: scale(1); }
+    100% { text-shadow: 0 0 20px #fff,0 0 40px #ff0000; transform: scale(1.05); }
+}
+
+/* Optional subtle hover effect for fun */
+div:hover h1 {
+    transform: scale(1.05) rotate(-2deg);
+    transition: transform 0.3s ease;
+}
+
+div:hover p {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
 </style>
 </head>
 <body>
 
 <div>
-    <h1>🚧 PROJECT IN PROGRESS 🚧</h1>
-    <p>Comms code will be posted soon. Stay tuned!</p>
+    <h1>🚧 ER:LC MOD BOT 🚧</h1>
+    <p>Project in Progress — Comms Code Coming Soon!</p>
 </div>
 
 </body>
