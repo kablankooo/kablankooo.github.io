@@ -1,1 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>kablankooo Projects</title>
+<link rel="icon" href="/images/logo.png?v=1" type="image/png">
+<style>
+    /* Remove scrollbar */
+    ::-webkit-scrollbar { width: 0px; background: transparent; }
+    html { scrollbar-width: none; }
 
+    /* Full-page gradient background */
+    @keyframes gradientFade {
+        0% {background-position: 0% 50%;}
+        50% {background-position: 100% 50%;}
+        100% {background-position: 0% 50%;}
+    }
+    body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(-45deg, #6a0dad, #9b30ff, #4b0082, #8a2be2);
+        background-size: 400% 400%;
+        animation: gradientFade 15s ease infinite;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 100px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 3em;
+        text-shadow:
+            0 0 5px #fff,
+            0 0 10px #fff,
+            0 0 20px #fff,
+            0 0 40px #ff00ff,
+            0 0 80px #ff00ff;
+        margin-bottom: 20px;
+    }
+
+    p {
+        max-width: 700px;
+        font-size: 1.3em;
+        line-height: 1.5em;
+        text-shadow: 0 0 5px rgba(0,0,0,0.5);
+        margin-bottom: 40px;
+    }
+
+    .project-link {
+        display: inline-block;
+        padding: 15px 25px;
+        margin: 10px;
+        font-size: 1.2em;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+        box-shadow: 0 0 15px rgba(0,0,0,0.4);
+        transition: all 0.3s ease;
+    }
+
+    .project-link:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.05);
+        box-shadow: 0 0 30px #ff00ff;
+    }
+
+    .footer {
+        margin-top: 80px;
+        font-size: 0.9em;
+        color: rgba(255,255,255,0.7);
+        text-shadow: 0 0 5px rgba(0,0,0,0.5);
+    }
+</style>
+</head>
+<body>
+
+<h1>kablankooo's Projects</h1>
+<p>Welcome to the projects page! Here, you'll find a selection of projects created by kablankooo. Currently, the available projects are linked below. More will be added over time as new creations are developed and shared.</p>
+
+<a href="https://kablankooo.github.io/projects/purpleturtle" target="_blank" class="project-link">PurpleTurtle</a>
+
+<div class="footer">© 2025 kablankooo. All rights reserved.</div>
+
+</body>
+</html>
