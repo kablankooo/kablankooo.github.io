@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>kablankooo - Main Page</title>
+<link rel="icon" href="images/logo.png" type="image/png">
+<style>
+    /* Gradient animated background */
+    @keyframes bgAnimation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    body {
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(-45deg, #6a0dad, #9b30ff, #4b0082, #8a2be2);
+        background-size: 400% 400%;
+        animation: bgAnimation 15s ease infinite;
+        color: #fff;
+        text-align: center;
+    }
+
+    /* Main container */
+    .container {
+        background: rgba(0,0,0,0.6);
+        padding: 50px 40px;
+        border-radius: 20px;
+        box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        max-width: 500px;
+        width: 90%;
+        backdrop-filter: blur(5px);
+    }
+
+    h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
+        text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff;
+    }
+
+    p {
+        font-size: 1.2em;
+        margin-bottom: 40px;
+        color: #eee;
+        line-height: 1.5;
+    }
+
+    /* Links */
+    .link-button {
+        display: block;
+        margin: 15px 0;
+        padding: 15px 25px;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #fff;
+        background: linear-gradient(90deg, #ff00ff, #8a2be2);
+        text-decoration: none;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px rgba(255,0,255,0.5);
+    }
+
+    .link-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 25px rgba(255,0,255,0.8);
+        background: linear-gradient(90deg, #ff69b4, #d580ff);
+    }
+
+    footer {
+        margin-top: 30px;
+        font-size: 0.9em;
+        color: rgba(255,255,255,0.7);
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Welcome to the Page of kablankooo</h1>
+    <p>This is the official landing page for kablankooo. Explore my work, projects, and creations below.</p>
+    
+    <a href="https://kablankooo.github.io/portfolio" target="_blank" class="link-button">PORTFOLIO</a>
+    <a href="https://kablankooo.github.io/projects" target="_blank" class="link-button">PROJECTS</a>
+
+    <footer>
+        &copy; 2025 kablankooo
+    </footer>
+</div>
+
+</body>
+</html>
