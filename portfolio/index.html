@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>kablankooo</title>
-<link rel="icon" href="images/logo.png?v=1" type="image/png">
+<link rel="icon" href="/images/logo.png?v=1" type="image/png">
 <style>
     /* Remove scrollbar */
     ::-webkit-scrollbar { width: 0px; background: transparent; }
@@ -88,7 +88,7 @@
 
 <div id="start-overlay"><span>Click to reveal kablankooo's portfolio c:</span></div>
 
-<img src="images/pfp.png" alt="Profile Picture" class="profile-img">
+<img src="/images/pfp.png" alt="Profile Picture" class="profile-img">
 <div class="top-title">kablankooo.github.io</div>
 <div class="scroll-hint">Scroll Down c:</div>
 <div class="content">
@@ -124,7 +124,7 @@ const imgContainer = document.getElementById("image-container");
 async function loadImages() {
     let index = 1;
     while(true){
-        let imgPath = `info/${index}.png`;
+        let imgPath = `/info/${index}.png`; // root path
         let exists = await fetch(imgPath,{method:"HEAD"}).then(r=>r.ok).catch(()=>false);
         if(!exists) break;
         let img = document.createElement("img");
@@ -136,7 +136,7 @@ async function loadImages() {
 loadImages();
 
 // Audio
-const audio = new Audio("bgmusic.mp3");
+const audio = new Audio("/bgmusic.mp3"); // root path
 audio.loop = true;
 audio.volume = 0.5;
 audio.muted = true;
